@@ -1,0 +1,5 @@
+services:
+  swagger-editor:
+    image: swaggerapi/swagger-editor:next-v5
+    ports:
+      - "8081:80"
