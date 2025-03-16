@@ -24,7 +24,7 @@ export const jobCardsTable = pgTable("job_cards", {
   createdAt: date().defaultNow(),
 });
 
-export const resourcesTable = pgTable("resources", {
+export const resourcesTable = pgTable("job_resources", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   jobCardId: integer().references(() => jobCardsTable.id).notNull(),
   name: varchar({ length: 255 }).notNull(),
@@ -35,7 +35,7 @@ export const resourcesTable = pgTable("resources", {
   unitId: integer().references(() => unitsTable.id).notNull(),
 });
 
-export const timeEntriesTable = pgTable("time_entries", {
+export const timeEntriesTable = pgTable("job_time_entries", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   jobCardId: integer().references(() => jobCardsTable.id).notNull(),
   start: timestamp().notNull(),

@@ -18,14 +18,19 @@ export function createCustomerHandlers(db: Db) {
       return { customer };
     },
     async createCustomer(customerData: typeof customersTable.$inferInsert) {
-      const insertedCustomers = await db.insert(customersTable).values(customerData)
+      const insertedCustomers = await db.insert(customersTable).values(
+        customerData,
+      )
         .returning();
       if (insertedCustomers.length !== 1) {
         throw new Error("Failed to insert customer. Length is not 1");
       }
       return { customer: insertedCustomers[0] };
     },
-    async updateCustomer(id: number, customerData: typeof customersTable.$inferSelect) {
+    async updateCustomer(
+      id: number,
+      customerData: typeof customersTable.$inferSelect,
+    ) {
       const { id: _id, ...customerWithoutId } = customerData;
       const updatedCustomers = await db.update(customersTable).set(
         customerWithoutId,
@@ -43,6 +48,6 @@ export function createCustomerHandlers(db: Db) {
         throw new Error("Failed to delete customer. Length is not 1");
       }
       return { customer: deletedCustomers[0] };
-    }
+    },
   };
 }

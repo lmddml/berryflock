@@ -36,12 +36,14 @@ export function createUnitHandlers(db: Db) {
       return updatedUnits[0];
     },
     async deleteUnit(id: number) {
-      const deletedUnits = await db.delete(unitsTable).where(eq(unitsTable.id, id))
+      const deletedUnits = await db.delete(unitsTable).where(
+        eq(unitsTable.id, id),
+      )
         .returning();
       if (deletedUnits.length !== 1) {
         throw new Error("Failed to delete unit. Length is not 1");
       }
       return deletedUnits[0];
-    }
+    },
   };
 }
